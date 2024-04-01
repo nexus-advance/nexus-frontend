@@ -1,0 +1,92 @@
+<app-breadcrumb [title]="'Empleados'" [items]="['Empleados' ]" [active_item]="'Listado'"></app-breadcrumb>
+<div class="container-fluid basic_table">
+    <div class="row">
+ 
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Listado de empleados registrados</h3>
+                    <span>Los empleados pueden ser filtrados por
+                        <code>nombres</code>
+                        <code>apellidos</code>
+                        <code>teléfono</code>
+                        <code>dirección</code>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-self-start ps-4 p-2">
+                        <input class="form-control" id="buscarempleado" type="text"
+                            placeholder="Digitar para buscar..." (keyup)="buscarEmpleado($event)" #filtro />
+                    </div>
+                    <div class="col-md-8 text-end  pt-2">
+                        <button class="btn btn-primary btn-lg me-2 " type="button" placement="top"
+                            ngbTooltip="Crear nuevo empleado" [routerLink]="'/employees/create'">
+                            Nuevo Empleado
+                        </button>
+                    </div>
+                    <div class="col-12">
+
+                        <hr>
+                    </div>
+                </div>
+                <div class="loader-box" *ngIf="loading">
+                    <div class="loader-37"></div>
+                </div>
+                <div class="table-responsive signal-table">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombres</th>
+                                <th scope="col">Apellidos</th>
+                                <th scope="col">Genero</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Departamento</th>
+                                <th scope="col">Cargo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of employyes; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>
+                                    {{item.emp_first_name+' '+item.emp_second_name+' '+item.emp_third_name}}
+                                </td>
+                                <td>
+                                    {{item.emp_first_surname+' '+item.emp_second_surname+' '+item.emp_married_surname}}
+                                </td>
+                                <td>
+                                    {{item.hos_gen_genders.gen_name}}
+                                </td>
+                                <td>
+                                    {{item.emp_cel_phone}}
+                                </td>
+                                <td>
+                                    {{item.hos_lad_labor_department.lad_name}}
+                                </td>
+                                <td>
+                                    {{item.hos_jti_job_title.jti_name}}
+                                </td>
+                                <td>
+
+                                    <div class="action">
+                                        <button class="btn btn-warning me-2"
+                                            [routerLink]="'/employees/update/'+item.emp_code">
+                                            <i class="icon-pencil-alt"></i>
+                                        </button>
+
+                                        <button class="btn btn-danger" (click)="deleteEmployee(item.emp_code)">
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

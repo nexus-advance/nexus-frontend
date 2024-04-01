@@ -1,0 +1,627 @@
+<!-- <app-breadcrumb [title]="'Detalle'" [items]="['Planillas' ]"
+    [active_item]="'Crear'"></app-breadcrumb> -->
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-xl-12 card mt-2">
+                <div class="card-body">
+                    <form [formGroup]="formSheets">
+                        <div class="row">
+                            <div class="col-12 m-0 p-0">
+                                <h6 class="m-0 p-0">Información de planilla</h6>
+                                <hr>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre</label>
+                                    <input class="form-control" type="text" placeholder="Nombre de la planilla"
+                                        formControlName="name" [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['name'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Mes</label>
+                                    <select class="form-control" formControlName="month" [ngClass]="{
+                                        'is-invalid': submitted && form['month'].errors
+                                      }">
+                                        <option value="">Seleccione...</option>
+                                        <option *ngFor="let item of months" [value]="item.id"> {{item.name}}
+                                        </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['month'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo de pago</label>
+                                    <select class="form-control" formControlName="paymentsType" [ngClass]="{
+                                        'is-invalid': submitted && form['paymentsType'].errors
+                                      }">
+                                        <option value="">Seleccione...</option>
+                                        <option *ngFor="let item of paymentsType" [value]="item.pmt_code">
+                                            {{item.pmt_name}}
+                                        </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <br>
+                                <button class="btn btn-primary" *ngIf="!loading" type="button"
+                                    (click)="sendEmployeeDate()">Procesar</button>
+
+                                <div class="loader-box" *ngIf="loading">
+                                    <div class="loader-1"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-primary" *ngIf="!loading" type="button">Imprimir
+                                    Planilla</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-info" *ngIf="!loading" type="button">Imprimir Descuentos</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-success" *ngIf="!loading" type="button">Imprimir Corte
+                                    Patronal</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-warning" *ngIf="!loading" type="button">Imprimir Boleta de
+                                    Pago</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-info" *ngIf="!loading" type="button">Imprimir R.
+                                    Transferencias</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-primary" *ngIf="!loading" type="button">Imprimir R.
+                                    Contable</button>
+                            </div>
+
+                            <!--- =============  -->
+                            <div class="col-12">
+                                <br>
+                            </div>
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-primary" *ngIf="!loading" type="button">Imprimir Horas
+                                    extras</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-info" *ngIf="!loading" type="button">Excel Descuentos</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-success" *ngIf="!loading" type="button">Descargar CSV</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-warning" *ngIf="!loading" type="button">Descargar R.
+                                    Excel</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-info" *ngIf="!loading" type="button">Descargar Archivo
+                                    TXT</button>
+                            </div>
+
+                            <div class="col-2 d-grid gap-2">
+                                <button class="btn btn-danger" *ngIf="!loading" type="button">Cerrar planilla</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-xl-12 card  ">
+                <div class="card-body">
+                    <form [formGroup]="formSheets">
+                        <div class="row">
+                            <div class="col-12 m-0 p-0">
+                                <h6 class="m-0 p-0">Agregar empleado a la planilla</h6>
+                                <hr>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Empleado</label>
+                                    <ng-select class="js-example-basic-single" [(ngModel)]="employee"
+                                        placeholder="Seleccione el empleado" (change)="veamos()">
+                                        <ng-option *ngFor="let emp of employees"
+                                            [value]="emp">{{emp.emp_first_name}}
+                                            {{emp.emp_second_name}} {{emp.emp_third_name}}
+                                            {{emp.emp_first_surname}} {{emp.emp_second_surname}}
+                                            {{emp.emp_married_surname}}</ng-option>
+                                    </ng-select>
+                                    <p *ngIf="submitted && form['month'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo de AFP</label>
+
+                                    <select class="form-control" formControlName="paymentsType" [ngClass]="{
+                                        'is-invalid': submitted && form['paymentsType'].errors
+                                      }">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">AFP CRECER - ISSS</option>
+                                        <option value="2">AFP CONFIA - ISSS</option>
+                                    </select>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo de PAGO</label>
+
+                                    <select class="form-control" formControlName="paymentsType" [ngClass]="{
+                                        'is-invalid': submitted && form['paymentsType'].errors
+                                      }">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">CHEQUE</option>
+                                        <option value="2">TRANSFERENCIA</option>
+                                    </select>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Dias laborados</label>
+                                    <input class="form-control" type="text" placeholder="Dias laborados"
+                                        formControlName="name" [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Dias no laborados</label>
+                                    <input class="form-control" type="text" placeholder="Dias  no laborados"
+                                        formControlName="name" [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Salario</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="Salario"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Dias Remunerados</label>
+                                    <input class="form-control" type="text" placeholder="Dias Remunerados"
+                                        formControlName="name" [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Horas Jornada</label>
+                                    <input class="form-control" type="text" placeholder="00" formControlName="name"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Dias de vacaciones</label>
+                                    <input class="form-control" type="text" placeholder="00" formControlName="name"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && form['name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Vacaciones:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0" formControlName="name"
+                                            [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Asuetos:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Bonos:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Otras Remunera:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Llegadas Tardes:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Horas Diurnas:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">#</span>
+                                        <input class="form-control" type="text" placeholder="0" formControlName="name"
+                                            [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Costo Horas Diurnas:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Horas Extra Diurna:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Horas Extraord:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">#</span>
+                                        <input class="form-control" type="text" placeholder="0" formControlName="name"
+                                            [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Costo Horas Extraord:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Horas Extra Extraord:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">#</span>
+                                        <input class="form-control" type="text" placeholder="0" formControlName="name"
+                                            [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Dias Incapacit:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">#</span>
+                                        <input class="form-control" type="text" placeholder="0" formControlName="name"
+                                            [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo incapacidad</label>
+                                    <select class="form-control" formControlName="month" [ngClass]="{
+                                        'is-invalid': submitted && form['month'].errors
+                                      }">
+                                        <option value="">Ninguna...</option>
+                                        <option value="1">Accidente</option>
+                                        <option value="2">Enfermedad</option>
+                                        <option value="2">Prorroga</option>
+                                    </select>
+                                    <p *ngIf="submitted && form['month'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Total Incapacidad:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr>
+                                <h6>Descuentos</h6>
+                            </div>
+                            <!-- <div ngIf="employee!=null && employee.hos_des_employee_discounts!=null && employee.hos_des_employee_discounts.length>0"
+                                class="col-3" *ngFor="let item of employee.hos_des_employee_discounts">
+                                <h6 for="">{{item.hos_din_discount_institutions.din_name }}</h6>
+                                <label for="">Cuotas: {{item.des_number_dues }}</label>
+                                <label for="">Monto: {{item.des_amount | currency }}</label>
+                            </div> -->
+                            <div class="col-12">
+                                <hr>
+                                <h6>Resumen</h6>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">25% ISSS:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Renta:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">ISSS:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">ISSS:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Importe Devengado:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Importe Liquido:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Importe Liquido:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input class="form-control" type="text" placeholder="0.00"
+                                            formControlName="name" [ngClass]="{
+                                                'is-invalid': submitted && form['name'].errors
+                                              }" readonly />
+                                    </div>
+                                    <p *ngIf="submitted && form['paymentsType'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
