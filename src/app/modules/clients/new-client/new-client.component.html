@@ -1,11 +1,11 @@
-<app-breadcrumb [title]="(id.length>10?'Actualizar':'Crear')+' Empleado'" [items]="['Empleados' ]"
+<app-breadcrumb [title]="(id.length>10?'Actualizar':'Crear')+' Cliente'" [items]="['Clientes' ]"
     [active_item]="'Crear'"></app-breadcrumb>
 <div class="container-fluid">
     <div class="edit-profile">
         <div class="row">
             <div class="col-xl-12 card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0"> {{ id.length>10?'Actualizar':'Crear' }} Empleado</h4>
+                    <h4 class="card-title mb-0"> {{ id.length>10?'Actualizar':'Crear' }} Cliente</h4>
                     <div class="card-options">
                         <a class="card-options-collapse" href="javascript:void(0)" data-bs-toggle="card-collapse"><i
                                 class="fe fe-chevron-up"></i></a><a class="card-options-remove"
@@ -36,8 +36,8 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Código de empleado</label>
-                                    <input class="form-control" type="text" placeholder="Codigo empleado"
+                                    <label class="form-label">Código de Cliente</label>
+                                    <input class="form-control" type="text" placeholder="Codigo Cliente"
                                         formControlName="employe_code" [ngClass]="{
                                             'is-invalid': submitted && form['employe_code'].errors
                                           }" />
@@ -422,7 +422,7 @@
 
                     <div *ngIf="navSelected=='2'">
                         <div *ngIf="id.length<10" class="alert alert-info"> <b>Atencion:</b> Se necesita registrar a un
-                            empleado para agregarle descuentos</div>
+                            cliente para agregarle descuentos</div>
                         <form *ngIf="id.length>10" [formGroup]="formDiscount">
                             <div class="row">
                                 <div class="col-3">

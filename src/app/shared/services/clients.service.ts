@@ -5,8 +5,8 @@ import { environment } from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployesService {
-  endpoint: String = environment.API_URL + "v1/employees";
+export class ClientsService {
+  endpoint: String = environment.API_URL + "v1/clients";
   constructor(private http: HttpClient) { }
   getAll() {
     return this.http.get(`${this.endpoint}`);

@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { EmployesService } from 'src/app/shared/services/employes.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'; 
+import { ClientsService } from 'src/app/shared/services';
 const Swal = require('sweetalert2')
 
 @Component({
-  selector: 'app-new-employee',
-  templateUrl: './new-employee.component.html',
+  selector: 'app-new-client',
+  templateUrl: './new-client.component.html',
   styles: ``
 })
-export class NewEmployeeComponent implements OnInit {
+export class NewClientComponent implements OnInit {
 
   model2: NgbDateStruct;
   model3: NgbDateStruct;
@@ -23,7 +23,7 @@ export class NewEmployeeComponent implements OnInit {
   loading: boolean = false;
   constructor(
     private fb: UntypedFormBuilder,
-    private employesService: EmployesService,
+    private employesService: ClientsService,
     private rutaActiva: ActivatedRoute,
     public router: Router,
   ) {
@@ -287,7 +287,7 @@ export class NewEmployeeComponent implements OnInit {
             Swal.fire({
               type: 'success',
               title: 'Exito',
-              text: 'Empleado ' + (this.id.length > 10 ? 'Actualizado' : 'Creado') + ' con exito!',
+              text: 'Cliente ' + (this.id.length > 10 ? 'Actualizado' : 'Creado') + ' con exito!',
               showConfirmButton: true,
               icon: "success"
 

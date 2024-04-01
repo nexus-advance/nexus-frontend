@@ -93,7 +93,7 @@ export class NavService implements OnDestroy {
     //     { path: "/simple-page/second-page", title: "Second Page", type: "link" },
     //   ],
     // },
-    { path: "/employees/index", icon: "user", title: "Empleado", active: false, type: "link", bookmark: true },
+    { path: "/clients/index", icon: "user", title: "Clientes", active: false, type: "link", bookmark: true },
     {
       title: "Planillas",
       icon: "table",

@@ -1,13 +1,13 @@
-<app-breadcrumb [title]="'Empleados'" [items]="['Empleados' ]" [active_item]="'Listado'"></app-breadcrumb>
+<app-breadcrumb [title]="'Clientes'" [items]="['Clientes' ]" [active_item]="'Listado'"></app-breadcrumb>
 <div class="container-fluid basic_table">
     <div class="row">
- 
+
 
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Listado de empleados registrados</h3>
-                    <span>Los empleados pueden ser filtrados por
+                    <h3>Listado de clientes registrados</h3>
+                    <span>Los Clientes pueden ser filtrados por
                         <code>nombres</code>
                         <code>apellidos</code>
                         <code>teléfono</code>
@@ -16,13 +16,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 align-self-start ps-4 p-2">
-                        <input class="form-control" id="buscarempleado" type="text"
-                            placeholder="Digitar para buscar..." (keyup)="buscarEmpleado($event)" #filtro />
+                        <input class="form-control" id="buscarcliente" type="text" placeholder="Digitar para buscar..."
+                            (keyup)="buscarCliente($event)" #filtro />
                     </div>
                     <div class="col-md-8 text-end  pt-2">
                         <button class="btn btn-primary btn-lg me-2 " type="button" placement="top"
-                            ngbTooltip="Crear nuevo empleado" [routerLink]="'/employees/create'">
-                            Nuevo Empleado
+                            ngbTooltip="Crear nuevo Cliente" [routerLink]="'/clients/create'">
+                            Nuevo Cliente
                         </button>
                     </div>
                     <div class="col-12">
@@ -39,11 +39,11 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nombres</th>
-                                <th scope="col">Apellidos</th>
-                                <th scope="col">Genero</th>
+                                <th scope="col">DUI</th>
                                 <th scope="col">Teléfono</th>
-                                <th scope="col">Departamento</th>
-                                <th scope="col">Cargo</th>
+                                <th scope="col">Domicilio</th>
+                                <th scope="col">Estado <br> Civil </th>
+                                <th scope="col">Genero</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -51,32 +51,33 @@
                             <tr *ngFor="let item of employyes; let i=index">
                                 <th scope="row">{{i+1}}</th>
                                 <td>
-                                    {{item.emp_first_name+' '+item.emp_second_name+' '+item.emp_third_name}}
+                                    {{item.cli_full_name }}
                                 </td>
                                 <td>
-                                    {{item.emp_first_surname+' '+item.emp_second_surname+' '+item.emp_married_surname}}
+                                    {{item.cli_dui ?? ''}}
                                 </td>
                                 <td>
-                                    {{item.hos_gen_genders.gen_name}}
+                                    {{item.cli_phone ?? ''}}
                                 </td>
                                 <td>
-                                    {{item.emp_cel_phone}}
+                                    {{ item.nex_dis_districts_client?.nex_mun_municipalities?.nex_dep_departament?.dep_names ?? ''}} <br>
+                                    {{ item.nex_dis_districts_client?.nex_mun_municipalities?.mun_names ?? ''}} <br>
+                                    {{ item.nex_dis_districts_client?.dis_names ?? ''}} 
                                 </td>
                                 <td>
-                                    {{item.hos_lad_labor_department.lad_name}}
+                                    {{item.nex_cis_civil_status?.cis_names ?? '' }}
                                 </td>
                                 <td>
-                                    {{item.hos_jti_job_title.jti_name}}
+                                    {{item.nex_gen_gender?.gen_names ?? '' }}
                                 </td>
                                 <td>
-
                                     <div class="action">
                                         <button class="btn btn-warning me-2"
-                                            [routerLink]="'/employees/update/'+item.emp_code">
+                                            [routerLink]="'/clients/update/'+item.cli_code">
                                             <i class="icon-pencil-alt"></i>
                                         </button>
 
-                                        <button class="btn btn-danger" (click)="deleteEmployee(item.emp_code)">
+                                        <button class="btn btn-danger" (click)="deleteClient(item.cli_code)">
                                             <i class="icon-trash"></i>
                                         </button>
                                     </div>

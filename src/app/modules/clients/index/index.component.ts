@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import {
-  EmployesService
-} from "src/app/shared/services";
 
-import { Employee, EmployesInterface } from '../interfaces/employes_response.interface';
+import { Client, GirosResponse } from '../interfaces/client-response.interface';
+import { ClientsService } from 'src/app/shared/services';
 const Swal = require('sweetalert2')
 @Component({
   selector: 'app-index',
@@ -12,37 +10,32 @@ const Swal = require('sweetalert2')
   styles: ``
 })
 export class IndexComponent implements OnInit {
-  employyes: Employee[] = [];
-  employyesFilter: Employee[] = [];
+  employyes: Client[] = [];
+  employyesFilter: Client[] = [];
   loading: Boolean = false;
   constructor(
-    private service: EmployesService,
+    private service: ClientsService,
   ) {
   }
   ngOnInit(): void {
-    this.getAllEmployees();
+    this.getAllClients();
   }
-  buscarEmpleado(termino: any) {
+  buscarCliente(termino: any) {
     let busqueda = termino.target.value;
     if (busqueda == null || busqueda.length == 0) {
       this.employyes = this.employyesFilter;
     } else {
       this.employyes = this.employyesFilter.filter(e => (
-        e.emp_first_name.toLowerCase().includes(busqueda.toLowerCase()) ||
-        e.emp_second_name.toLowerCase().includes(busqueda.toLowerCase()) ||
-        e.emp_third_name.toLowerCase().includes(busqueda.toLowerCase()) ||
-        e.emp_second_surname.toLowerCase().includes(busqueda.toLowerCase()) ||
-        e.emp_first_surname.toLowerCase().includes(busqueda.toLowerCase()) ||
-        e.emp_married_surname.toLowerCase().includes(busqueda.toLowerCase())
+        e.cli_full_name.toLowerCase().includes(busqueda.toLowerCase())
       ));
     }
   }
 
 
-  getAllEmployees() {
+  getAllClients() {
     this.loading = true;
     this.service.getAll().subscribe({
-      next: (value: EmployesInterface) => {
+      next: (value: GirosResponse) => {
         this.employyes = value.data;
         this.employyesFilter = value.data;
         this.loading = false;
@@ -54,12 +47,12 @@ export class IndexComponent implements OnInit {
   }
 
 
-  deleteEmployee(id_: any) {
-    let data = this.employyes.filter((e: any) => e.emp_code == id_)[0];
-    let employee = data.emp_first_name + ' ' + data.emp_second_name + ' ' + data.emp_third_name + ' ' + data.emp_first_surname + ' ' + data.emp_second_surname + ' ' + data.emp_married_surname
+  deleteClient(id_: any) {
+    const data = this.employyes.filter((e: any) => e.cli_code == id_)[0];
+    const client = data.cli_full_name
     Swal.fire({
       title: "¿Está seguro?",
-      text: `Estas por eliminar: ${employee}`,
+      text: `Estas por eliminar: ${client}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#364574",
@@ -72,15 +65,13 @@ export class IndexComponent implements OnInit {
           next: (resp) => {
             var r: any = resp;
             if (r.status) {
-              this.getAllEmployees();
-
+              this.getAllClients();
               Swal.fire({
                 type: 'success',
                 title: 'Exito',
-                text: 'Empleado eliminado con exito!',
+                text: 'Cliente eliminado con exito!',
                 showConfirmButton: true,
                 icon: "success"
-
               });
             }
           },

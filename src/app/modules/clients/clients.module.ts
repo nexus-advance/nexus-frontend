@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ClientsRoutingModule } from './clients.routing.module';
 import { IndexComponent } from './index/index.component';
-import { FormSheetsRoutingModule } from './form-sheets.routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CreateComponent } from './create/create.component';
+import { NewClientComponent } from "./new-client/new-client.component";
 
 
 
 @NgModule({
   declarations: [
     IndexComponent,
-    CreateComponent,
+    NewClientComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    FormSheetsRoutingModule
+    ClientsRoutingModule
   ]
 })
-export class FormSheetsModule { }
+export class ClientsModule { }

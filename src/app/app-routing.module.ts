@@ -25,15 +25,10 @@ const routes: Routes = [
           import("./modules/dashboard/dashboard.module").then((m) => m.DashboardModule),
       },
       {
-        path: "employees",
+        path: "clients",
         loadChildren: () =>
-          import("./modules/employees/employees.module").then((m) => m.EmployeesModule),
-      },
-      {
-        path: "form-sheets",
-        loadChildren: () =>
-          import("./modules/form-sheets/form-sheets.module").then((m) => m.FormSheetsModule),
-      },
+          import("./modules/clients/clients.module").then((m) => m.ClientsModule),
+      }, 
     ]
   },
   {

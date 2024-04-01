@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
-import { NewEmployeeComponent } from "./new-employee/new-employee.component";
+import { NewClientComponent } from "./new-client/new-client.component";
 
 const routes: Routes = [
   // {
@@ -15,11 +15,11 @@ const routes: Routes = [
   },
   {
     path: "create",
-    component: NewEmployeeComponent,
+    component: NewClientComponent,
   },
   {
     path: "update/:id",
-    component: NewEmployeeComponent,
+    component: NewClientComponent,
   },
 ];
 
@@ -27,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EmployeesRoutingModule { }
+export class ClientsRoutingModule { }
