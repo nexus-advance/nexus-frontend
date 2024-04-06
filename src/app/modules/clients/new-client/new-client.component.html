@@ -31,104 +31,101 @@
                     <form [formGroup]="editProfile" *ngIf="navSelected=='1'">
                         <div class="row">
                             <div class="col-12 m-0 p-0">
-                                <h6 class="m-0 p-0">información Personal</h6>
+                                <h6 class="m-0 p-0">Datos Personales</h6>
                                 <hr>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Código de Cliente</label>
-                                    <input class="form-control" type="text" placeholder="Codigo Cliente"
-                                        formControlName="employe_code" [ngClass]="{
-                                            'is-invalid': submitted && form['employe_code'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['employe_code'].errors" class="is-invalid text-danger">
+                                    <label class="form-label">Mercado o Zona</label>
+                                    <select class="form-control" formControlName="mar_code" [ngClass]="{
+                                        'is-invalid': submitted && form['mar_code'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of marks" [value]="item.mar_code"> {{item.mar_name}}
+                                        </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['mar_code'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Primer Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Primer Nombre"
-                                        formControlName="name_1" [ngClass]="{
-                                            'is-invalid': submitted && form['name_1'].errors
+                                    <label class="form-label">Nombre completo</label>
+                                    <input class="form-control" type="text" placeholder="Nombre completo"
+                                        formControlName="cli_full_name" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_full_name'].errors
                                           }" />
-                                    <p *ngIf="submitted && form['name_1'].errors" class="is-invalid text-danger">
+                                    <p *ngIf="submitted && form['cli_full_name'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">DUI</label>
+                                    <input class="form-control" type="text" placeholder="DUI" formControlName="cli_dui" mask="00000000-0"
+                                        [ngClass]="{
+                                        'is-invalid': submitted && form['cli_dui'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_dui'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Segundo Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Segundo Nombre"
-                                        formControlName="name_2" [ngClass]="{
-                                            'is-invalid': submitted && form['name_2'].errors
+                                <label class="form-label">Fecha de expedicion</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="text" placeholder="yyyy-mm-dd" mask="0000-M0-d0"
+                                        [dropSpecialCharacters]="false" formControlName="cli_dui_date_expedition"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && form['cli_dui_date_expedition'].errors
                                           }" />
-                                    <p *ngIf="submitted && form['name_2'].errors" class="is-invalid text-danger">
+                                </div>
+                                <p *ngIf="submitted && form['cli_dui_date_expedition'].errors"
+                                    class="is-invalid text-danger">
+                                    Este dato es requerido
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Lugar de expedicion</label>
+                                    <input class="form-control" type="text" placeholder="Lugar de expedicion"
+                                        formControlName="cli_place_expedition" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_place_expedition'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_place_expedition'].errors"
+                                        class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Tercer Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Tercer Nombre"
-                                        formControlName="name_3" [ngClass]="{
-                                            'is-invalid': submitted && form['name_3'].errors
+                                <label class="form-label">Fecha de expiracion</label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="text" placeholder="yyyy-mm-dd" mask="0000-M0-d0"
+                                        [dropSpecialCharacters]="false" formControlName="cli_dui_date_expiration"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && form['cli_dui_date_expiration'].errors
                                           }" />
-                                    <p *ngIf="submitted && form['name_3'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Primer Apellido</label>
-                                    <input class="form-control" type="text" placeholder="Primer Apellido"
-                                        formControlName="surname_1" [ngClass]="{
-                                            'is-invalid': submitted && form['surname_1'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['surname_1'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Segundo Apellido</label>
-                                    <input class="form-control" type="text" placeholder="Segundo Apellido"
-                                        formControlName="surname_2" [ngClass]="{
-                                            'is-invalid': submitted && form['surname_2'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['surname_2'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Apellido de casada</label>
-                                    <input class="form-control" type="text" placeholder="Apellido de casada"
-                                        formControlName="surname_3" [ngClass]="{
-                                            'is-invalid': submitted && form['surname_3'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['surname_3'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
+                                <p *ngIf="submitted && form['cli_dui_date_expiration'].errors"
+                                    class="is-invalid text-danger">
+                                    Este dato es requerido
+                                </p>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label">Genero</label>
-                                    <select class="form-control" formControlName="gender" [ngClass]="{
-                                        'is-invalid': submitted && form['gender'].errors
+                                    <select class="form-control" formControlName="gen_code" [ngClass]="{
+                                        'is-invalid': submitted && form['gen_code'].errors
                                       }">
                                         <option value="" selected>--Seleccione--</option>
-                                        <option *ngFor="let item of genders" [value]="item.gen_code"> {{item.gen_name}}
+                                        <option *ngFor="let item of genders" [value]="item.gen_code"> {{item.gen_names}}
                                         </option>
                                     </select>
-                                    <p *ngIf="submitted && form['gender'].errors" class="is-invalid text-danger">
+                                    <p *ngIf="submitted && form['gen_code'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
@@ -137,179 +134,93 @@
                             <div class="col-md-3">
                                 <label class="form-label">Fecha de nacimiento</label>
                                 <div class="input-group mb-3">
-                                    <input class="form-control" [(ngModel)]="model2" placeholder="yyyy-mm-dd" name="d3"
-                                        ngbDatepicker #d3="ngbDatepicker" [placement]="'top'"
-                                        [positionTarget]="buttonEl" formControlName="birth_date" [ngClass]="{
-                                            'is-invalid': submitted && form['birth_date'].errors
+                                    <input class="form-control" type="text" placeholder="yyyy-mm-dd" mask="0000-M0-d0"
+                                        [dropSpecialCharacters]="false" formControlName="cli_birth_date" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_birth_date'].errors
                                           }" />
-                                    <button #buttonEl class="btn btn-primary calendar" (click)="d3.toggle()"
-                                        type="button">
-                                        <app-feather-icons [icon]="'calendar'"></app-feather-icons>
-                                    </button>
                                 </div>
-                                <p *ngIf="submitted && form['birth_date'].errors" class="is-invalid text-danger">
+                                <p *ngIf="submitted && form['cli_birth_date'].errors" class="is-invalid text-danger">
                                     Este dato es requerido
                                 </p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">NIT</label>
+                                    <input class="form-control" type="text" placeholder="NIT" formControlName="cli_nit"
+                                        [ngClass]="{
+                                        'is-invalid': submitted && form['cli_nit'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_nit'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Estado Civil</label>
+                                    <select class="form-control" formControlName="cis_code" [ngClass]="{
+                                        'is-invalid': submitted && form['cis_code'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of civilStatus" [value]="item.cis_code">
+                                            {{item.cis_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cis_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">No. Hijos</label>
+                                    <input class="form-control" type="text" placeholder="No. Hijos"
+                                        formControlName="cli_children_number" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_children_number'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_children_number'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre conyuge</label>
+                                    <input class="form-control" type="text" placeholder="Nombre conyuge"
+                                        formControlName="cli_spouse_name" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_spouse_name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_spouse_name'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Profesion u oficio</label>
+                                    <select class="form-control" formControlName="prf_code" [ngClass]="{
+                                        'is-invalid': submitted && form['prf_code'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of profession" [value]="item.prf_code">
+                                            {{item.prf_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['prf_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label">Teléfono</label>
-                                    <input class="form-control" type="text" placeholder="Teléfono"
-                                        formControlName="phone" [ngClass]="{
-                                            'is-invalid': submitted && form['phone'].errors
+                                    <input class="form-control" type="text" placeholder="Teléfono"  mask="0000-0000"
+                                        formControlName="cli_cell_phone" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_cell_phone'].errors
                                           }" />
-                                    <p *ngIf="submitted && form['phone'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Dirección</label>
-                                    <input class="form-control" type="text" placeholder="Dirección"
-                                        formControlName="address" [ngClass]="{
-                                            'is-invalid': submitted && form['address'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['address'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-12 m-0 p-0">
-                                <br>
-                                <h6 class="m-0 p-0">información de indentificacion</h6>
-                                <hr>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">DUI</label>
-                                    <input class="form-control" type="text" placeholder="DUI" formControlName="dui"
-                                        [ngClass]="{
-                                        'is-invalid': submitted && form['dui'].errors
-                                      }" />
-                                    <p *ngIf="submitted && form['dui'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">NIT</label>
-                                    <input class="form-control" type="text" placeholder="NIT" formControlName="nit"
-                                        [ngClass]="{
-                                        'is-invalid': submitted && form['nit'].errors
-                                      }" />
-                                    <p *ngIf="submitted && form['nit'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">ISSS</label>
-                                    <input class="form-control" type="text" placeholder="ISSS" formControlName="isss"
-                                        [ngClass]="{
-                                        'is-invalid': submitted && form['isss'].errors
-                                      }" />
-                                    <p *ngIf="submitted && form['isss'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">AFP</label>
-                                    <input class="form-control" type="text" placeholder="AFP" formControlName="afp"
-                                        [ngClass]="{
-                                        'is-invalid': submitted && form['afp'].errors
-                                      }" />
-                                    <p *ngIf="submitted && form['afp'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-12 m-0 p-0">
-                                <br>
-                                <h6 class="m-0 p-0">información administrativa</h6>
-                                <hr>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Fecha de inicio</label>
-                                <div class="input-group mb-3">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="model3" name="d4"
-                                        ngbDatepicker #d4="ngbDatepicker" [placement]="'top'"
-                                        [positionTarget]="buttonElStart" formControlName="start_date" [ngClass]="{
-                                            'is-invalid': submitted && form['start_date'].errors
-                                          }" />
-                                    <button #buttonElStart class="btn btn-primary calendar" (click)="d4.toggle()"
-                                        type="button">
-                                        <app-feather-icons [icon]="'calendar'"></app-feather-icons>
-                                    </button>
-                                </div>
-                                <p *ngIf="submitted && form['start_date'].errors" class="is-invalid text-danger">
-                                    Este dato es requerido
-                                </p>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label class="form-label">Fecha fin</label>
-                                <div class="input-group mb-3">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="model4" name="dp3"
-                                        ngbDatepicker #dp3="ngbDatepicker" [placement]="'top'"
-                                        [positionTarget]="buttonElEnd" formControlName="end_date" [ngClass]="{
-                                            'is-invalid': submitted && form['end_date'].errors
-                                          }" />
-                                    <button #buttonElEnd class="btn btn-primary calendar" (click)="dp3.toggle()"
-                                        type="button">
-                                        <app-feather-icons [icon]="'calendar'"></app-feather-icons>
-                                    </button>
-                                </div>
-                                <p *ngIf="submitted && form['end_date'].errors" class="is-invalid text-danger">
-                                    Este dato es requerido
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Salario Hora</label>
-                                    <input class="form-control" type="number" step="0.01" placeholder="Salario Hora"
-                                        formControlName="emp_hourly_wage" [ngClass]="{
-                                            'is-invalid': submitted && form['emp_hourly_wage'].errors
-                                          }" />
-                                </div>
-                                <p *ngIf="submitted && form['emp_hourly_wage'].errors" class="is-invalid text-danger">
-                                    Este dato es requerido
-                                </p>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Salario Dia</label>
-                                    <input class="form-control" type="number" step="0.01" placeholder="Salario Dia"
-                                        formControlName="emp_daily_wage" [ngClass]="{
-                                            'is-invalid': submitted && form['emp_daily_wage'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['emp_daily_wage'].errors"
-                                        class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Salario Base</label>
-                                    <input class="form-control" type="number" step="0.01" placeholder="Salario Base"
-                                        formControlName="emp_base_salary" [ngClass]="{
-                                            'is-invalid': submitted && form['emp_base_salary'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['emp_base_salary'].errors"
+                                    <p *ngIf="submitted && form['cli_cell_phone'].errors"
                                         class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
@@ -317,25 +228,183 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Viaticos</label>
-                                    <input class="form-control" type="number" step="0.01" placeholder="Viaticos"
-                                        formControlName="emp_viatic" [ngClass]="{
-                                            'is-invalid': submitted && form['emp_viatic'].errors
-                                          }" />
-                                    <p *ngIf="submitted && form['emp_viatic'].errors" class="is-invalid text-danger">
+                                    <label class="form-label">Nivel educativo</label>
+                                    <select class="form-control" formControlName="edl_code" [ngClass]="{
+                                        'is-invalid': submitted && form['edl_code'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of education" [value]="item.edl_code">
+                                            {{item.edl_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['edl_code'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Viaticos Complementarios</label>
-                                    <input class="form-control" type="number" step="0.01"
-                                        placeholder="Viaticos Complementarios"
-                                        formControlName="emp_complementary_diatic" [ngClass]="{
-                                            'is-invalid': submitted && form['emp_complementary_diatic'].errors
+                                    <label class="form-label">Correo</label>
+                                    <input class="form-control" type="text" placeholder="Correo electronico"
+                                        formControlName="cli_email" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_email'].errors
                                           }" />
-                                    <p *ngIf="submitted && form['emp_complementary_diatic'].errors"
+                                    <p *ngIf="submitted && form['cli_email'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 m-0 p-0">
+                                <br>
+                                <h6 class="m-0 p-0">Datos de fondos</h6>
+                                <hr>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">¿Es contribuyente
+                                        fiscal?</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox"
+                                            [checked]="form['cli_is_taxpayer'].value" formControlName="cli_is_taxpayer"
+                                            id="cli_is_taxpayer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">No. registro contribuyente de IVA:</label>
+                                    <input class="form-control" type="text"
+                                        placeholder="No. registro contribuyente de IVA"
+                                        formControlName="cli_no_taxpayer" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_no_taxpayer'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_no_taxpayer'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Promedio de movimientos de fondos por mes</label>
+                                    <!-- <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"> $500.00</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox" 
+                                            formControlName="cli_mount_month_500" [(ngModel)]="cli_mount_month_500"
+                                            id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"> $1,000.00</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox" 
+                                            formControlName="cli_mount_month_1000" [(ngModel)]="cli_mount_month_1000"
+                                            id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"> $3,500.00</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox"  
+                                            formControlName="cli_mount_month_3500"  
+                                            id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"> N/A</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox"  
+                                            formControlName="cli_mount_month_na"  
+                                            id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-label" for="flexSwitchCheckDefault">¿Posee otros
+                                        ingresos?</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault"> Si</label>
+                                        <input class="form-check-input" type="checkbox"
+                                            [checked]="cli_have_other_incomer" id="flexSwitchCheckDefault"
+                                            formControlName="cli_have_other_incomer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault"> No</label>
+                                        <input class="form-check-input" type="checkbox"
+                                            [checked]="!cli_have_other_incomer" id="flexSwitchCheckDefault"
+                                            formControlName="cli_have_other_incomer">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 m-0 p-0">
+                                <br>
+                                <h6 class="m-0 p-0">Datos del negocio</h6>
+                                <hr>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo de negocio</label>
+                                    <input class="form-control" type="text" placeholder="Tipo de negocio"
+                                        formControlName="cli_bussiness_tipe" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_bussiness_tipe'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_bussiness_tipe'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-label">Tiempo de estar en el negocio (años)</label>
+                                    <input class="form-control" type="number"
+                                        placeholder="Tiempo de estar en el negocio (años)"
+                                        formControlName="cli_time_bussiness" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_time_bussiness'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_time_bussiness'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Ubicacion exacta del negocio</label>
+                                    <input class="form-control" type="text" placeholder="Ubicacion exacta del negocio"
+                                        formControlName="cli_address_bussiness" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_address_bussiness'].errors
+                                      }" />
+                                    <p *ngIf="submitted && form['cli_address_bussiness'].errors"
                                         class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
@@ -346,69 +415,227 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label">Departamento</label>
-                                    <select class="form-control" formControlName="departament" [ngClass]="{
-                                        'is-invalid': submitted && form['departament'].errors
-                                      }">
+                                    <select class="form-control" formControlName="cli_dep_code_bussines" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_dep_code_bussines'].errors
+                                      }" (ngModelChange)="onChangeDepBus($event)">
                                         <option value="" selected>--Seleccione--</option>
-                                        <option *ngFor="let item of laborsDepartaments" [value]="item.lad_code">
-                                            {{item.lad_name}} </option>
+                                        <option *ngFor="let item of departaments" [value]="item.dep_code">
+                                            {{item.dep_names}} </option>
                                     </select>
-                                    <p *ngIf="submitted && form['departament'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Cargo Laboral</label>
-                                    <select class="form-control" formControlName="job_title" [ngClass]="{
-                                        'is-invalid': submitted && form['job_title'].errors
-                                      }">
-                                        <option value="" selected>--Seleccione--</option>
-                                        <option *ngFor="let item of jobTitle" [value]="item.jti_code"> {{item.jti_name}}
-                                        </option>
-                                    </select>
-                                    <p *ngIf="submitted && form['job_title'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label">Tipo Laboral</label>
-                                    <select class="form-control" formControlName="job_type" [ngClass]="{
-                                            'is-invalid': submitted && form['job_type'].errors
-                                          }">
-                                        <option value="" selected>--Seleccione--</option>
-                                        <option *ngFor="let item of workStatus" [value]="item.wst_code">
-                                            {{item.wst_name}} </option>
-                                    </select>
-                                    <p *ngIf="submitted && form['job_type'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Superior Inmediato</label>
-                                    <select class="form-control" formControlName="immediate_superior" [ngClass]="{
-                                        'is-invalid': submitted && form['immediate_superior'].errors
-                                      }">
-                                        <option selected>--Seleccione--</option>
-                                        <option value="1">Germany</option>
-                                        <option value="2">Canada</option>
-                                    </select>
-                                    <p *ngIf="submitted && form['immediate_superior'].errors"
+                                    <p *ngIf="submitted && form['cli_dep_code_bussines'].errors"
                                         class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Municipio</label>
+                                    <select class="form-control" formControlName="cli_mun_code_bussines" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_mun_code_bussines'].errors
+                                      }" (ngModelChange)="onChangeMunBus($event)">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of bussines_nex_mun_municipalities"
+                                            [value]="item.mun_code">
+                                            {{item.mun_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cli_mun_code_bussines'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Distrito</label>
+                                    <select class="form-control" formControlName="cli_dis_code_bussines" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_dis_code_bussines'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of bussines_nex_dis_districts" [value]="item.dis_code">
+                                            {{item.dis_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cli_dis_code_bussines'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Ventas diarias</label>
+                                    <input class="form-control" type="number" step="0.01" placeholder="Ventas diarias"
+                                        formControlName="cli_daily_sell" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_daily_sell'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_daily_sell'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Costos de ventas diarias</label>
+                                    <input class="form-control" type="number" step="0.01"
+                                        placeholder="Costos de ventas diarias" formControlName="cli_daily_buy"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && form['cli_daily_buy'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_daily_buy'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Margen de ganancia</label>
+                                    <input class="form-control" type="number" step="0.01"
+                                        placeholder="Margen de ganancia" formControlName="cli_daily_gain" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_daily_gain'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_daily_gain'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 m-0 p-0">
+                                <br>
+                                <h6 class="m-0 p-0">Datos de Domicilio</h6>
+                                <hr>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Departamento</label>
+                                    <select class="form-control" formControlName="cli_dep_code" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_dep_code'].errors
+                                      }" (ngModelChange)="onChangeDepDom($event)">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of departaments" [value]="item.dep_code">
+                                            {{item.dep_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cli_dep_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Municipio</label>
+                                    <select class="form-control" formControlName="cli_mun_code" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_mun_code'].errors
+                                      }" (ngModelChange)="onChangeMunDom($event)">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of address_nex_mun_municipalities"
+                                            [value]="item.mun_code">
+                                            {{item.mun_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cli_mun_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Distrito</label>
+                                    <select class="form-control" formControlName="cli_dis_code" [ngClass]="{
+                                        'is-invalid': submitted && form['cli_dis_code'].errors
+                                      }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option *ngFor="let item of address_nex_dis_districts" [value]="item.dis_code">
+                                            {{item.dis_names}} </option>
+                                    </select>
+                                    <p *ngIf="submitted && form['cli_dis_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Direccion</label>
+                                    <input class="form-control" type="text" placeholder="Direccion"
+                                        formControlName="cli_address" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_address'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_address'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Teléfono fijo</label>
+                                    <input class="form-control" type="text" placeholder="Teléfono"  mask="0000-0000"
+                                        formControlName="cli_phone" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_phone'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_phone'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Tiempo de vivir en el lugar (años)</label>
+                                    <input class="form-control" type="number" placeholder="Tiempo de vivir en el lugar"  
+                                        formControlName="cli_time_alive" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_time_alive'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_time_alive'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Vivienda
+                                        propia?</label>
+                                    <div class="form-check form-switch checkbox-lg">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                            formControlName="cli_have_time_alive">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre del arrendatario</label>
+                                    <input class="form-control" type="text" placeholder="Nombre del arrendatario"
+                                        formControlName="cli_tenant_name" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_tenant_name'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_tenant_name'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Telefono del arrendatario</label>
+                                    <input class="form-control" type="text" placeholder="Telefono del arrendatario" mask="0000-0000"
+                                        formControlName="cli_tenant_phone" [ngClass]="{
+                                            'is-invalid': submitted && form['cli_tenant_phone'].errors
+                                          }" />
+                                    <p *ngIf="submitted && form['cli_tenant_phone'].errors"
+                                        class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer text-end">
                             <button class="btn btn-primary" *ngIf="!loading" type="button"
@@ -452,10 +679,10 @@
                                 <div class="col-2">
                                     <label class="form-label">Fecha de inicio</label>
                                     <div class="input-group mb-3">
-                                        <input class="form-control" [(ngModel)]="modelstart" placeholder="yyyy-mm-dd"
-                                            name="modelstart1" ngbDatepicker #modelstart1="ngbDatepicker"
-                                            [placement]="'top'" [positionTarget]="buttonEl" formControlName="startdate"
-                                            [ngClass]="{
+                                        <input class="form-control" [(ngModel)]="modelstart" type="text"
+                                            placeholder="yyyy-mm-dd" mask="0000-M0-d0" name="modelstart1" ngbDatepicker
+                                            #modelstart1="ngbDatepicker" [placement]="'top'" [positionTarget]="buttonEl"
+                                            formControlName="startdate" [ngClass]="{
                                                 'is-invalid': submitted && formi['startdate'].errors
                                               }" />
                                         <button #buttonEl class="btn btn-primary calendar"
@@ -471,10 +698,10 @@
                                 <div class="col-2">
                                     <label class="form-label">Fecha de fin</label>
                                     <div class="input-group mb-3">
-                                        <input class="form-control" [(ngModel)]="modelend" placeholder="yyyy-mm-dd"
-                                            name="modelend1" ngbDatepicker #modelend1="ngbDatepicker"
-                                            [placement]="'top'" [positionTarget]="buttonEl" formControlName="enddate"
-                                            [ngClass]="{
+                                        <input class="form-control" [(ngModel)]="modelend" type="text"
+                                            placeholder="yyyy-mm-dd" mask="0000-M0-d0" name="modelend1" ngbDatepicker
+                                            #modelend1="ngbDatepicker" [placement]="'top'" [positionTarget]="buttonEl"
+                                            formControlName="enddate" [ngClass]="{
                                                 'is-invalid': submitted && formi['enddate'].errors
                                               }" />
                                         <button #buttonEl class="btn btn-primary calendar" (click)="modelend1.toggle()"

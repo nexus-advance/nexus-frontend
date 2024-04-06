@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'; 
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ClientsService } from 'src/app/shared/services';
 const Swal = require('sweetalert2')
 
@@ -15,6 +15,7 @@ export class NewClientComponent implements OnInit {
   model2: NgbDateStruct;
   model3: NgbDateStruct;
   model4: NgbDateStruct;
+  model5: NgbDateStruct;
 
 
   modelstart: NgbDateStruct;
@@ -27,7 +28,6 @@ export class NewClientComponent implements OnInit {
     private rutaActiva: ActivatedRoute,
     public router: Router,
   ) {
-    this.getCatalogs();
   }
 
   @Input() color: any;
@@ -37,9 +37,9 @@ export class NewClientComponent implements OnInit {
   id = "";
   ngOnInit(): void {
     this.id = this.rutaActiva.snapshot.params["id"] ?? '';
+    this.getCatalogs();
     this.clearForm();
     this.clearFormDiscount();
-    this.getEmploye();
     this.getDiscounts();
   }
   getEmploye() {
@@ -50,63 +50,76 @@ export class NewClientComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           let employee = data.data;
-          let birth_date = employee.emp_birth_date.split("T")[0];
-          let [year, month, day] = birth_date.split('-');
-          let obj = {
-            year: parseInt(year), month: parseInt(month), day:
-              parseInt(day.split(' ')[0].trim())
-          };
-          this.model2 = obj;
-
-
-          let start_date = employee.emp_admission_date.split("T")[0];
-          [year, month, day] = start_date.split('-');
-          obj = {
-            year: parseInt(year), month: parseInt(month), day:
-              parseInt(day.split(' ')[0].trim())
-          };
-          this.model3 = obj;
-
-
-
-          let end_date = employee.emp_departure_date.split("T")[0];
-          [year, month, day] = end_date.split('-');
-          obj = {
-            year: parseInt(year), month: parseInt(month), day:
-              parseInt(day.split(' ')[0].trim())
-          };
-          this.model4 = obj;
+          let cli_dui_date_expiration: string = employee.cli_dui_date_expiration;
+          if (cli_dui_date_expiration.split("T").length == 2) {
+            cli_dui_date_expiration = cli_dui_date_expiration.split("T")[0];
+          }
+          let cli_dui_date_expedition: string = employee.cli_dui_date_expedition;
+          if (cli_dui_date_expedition.split("T").length == 2) {
+            cli_dui_date_expedition = cli_dui_date_expedition.split("T")[0];
+          }
+          let cli_birth_date: string = employee.cli_birth_date;
+          if (cli_birth_date.split("T").length == 2) {
+            cli_birth_date = cli_birth_date.split("T")[0];
+          }
           this.editProfile.patchValue({
-            employe_code: employee.emp_code_employee,
-            name_1: employee.emp_first_name,
-            name_2: employee.emp_second_name,
-            name_3: employee.emp_third_name,
-            surname_1: employee.emp_first_surname,
-            surname_2: employee.emp_second_surname,
-            surname_3: employee.emp_married_surname,
+            cli_full_name: employee.cli_full_name,
+            cli_birth_date,
+            mar_code: employee.mar_code,
+            cli_dui: employee.cli_dui,
+            cli_nit: employee.cli_nit,
+            cli_children_number: employee.cli_children_number,
+            cli_spouse_name: employee.cli_spouse_name,
+            cli_email: employee.cli_email,
+            prf_code: employee.prf_code,
+            edl_code: employee.edl_code,
+            cli_place_expedition: employee.cli_place_expedition,
+            cli_dui_date_expedition,
+            cis_code: employee.cis_code,
+            cli_dui_date_expiration,
+            gen_code: employee.gen_code,
+            cli_is_taxpayer: employee.cli_is_taxpayer,
+            cli_no_taxpayer: employee.cli_no_taxpayer,
+            // cli_mount_month: 0,
+            cli_have_other_incomer: employee.cli_have_other_incomer,
+            cli_bussiness_tipe: employee.cli_bussiness_tipe,
+            cli_time_bussiness: employee.cli_time_bussiness,
+            cli_address_bussiness: employee.cli_address_bussiness,
+            cli_dep_code_bussines: employee.cli_dep_code_bussines,
+            cli_mun_code_bussines: employee.cli_mun_code_bussines,
+            cli_dis_code_bussines: employee.cli_dis_code_bussines,
+            cli_daily_sell: employee.cli_daily_sell,
+            cli_daily_buy: employee.cli_daily_buy,
+            cli_daily_gain: employee.cli_daily_gain,
+            cli_address: employee.cli_address,
+            cli_phone: employee.cli_phone,
+            cli_cell_phone: employee.cli_cell_phone,
+            cli_dep_code: employee.cli_dep_code,
+            cli_mun_code: employee.cli_mun_code,
+            cli_dis_code: employee.cli_dis_code,
+            cli_have_time_alive: employee.cli_have_time_alive,
+            cli_time_alive: employee.cli_time_alive,
+            cli_tenant_name: employee.cli_tenant_name,
+            cli_tenant_phone: employee.cli_tenant_phone,
 
-            gender: employee.emp_codgen,
-            // birth_date, //TODO
-            // start_date,//TODO
-            // end_date: employee.emp_departure_date,//TODO
-            address: employee.emp_address,
-            phone: employee.emp_cel_phone,
-            dui: employee.emp_dui,
-            nit: employee.emp_nit,
-            isss: employee.emp_isss,
-            afp: employee.emp_afp,
-            emp_hourly_wage: Number(employee.emp_hourly_wage),
-            emp_daily_wage: Number(employee.emp_daily_wage),
-            emp_base_salary: Number(employee.emp_base_salary),
-
-            emp_viatic: Number(employee.emp_viatic),
-            emp_complementary_diatic: Number(employee.emp_complementary_diatic),
-            departament: employee.emp_codlad,
-            job_title: employee.emp_codjti,
-            job_type: employee.emp_codwst,
-            // immediate_superior: employee.emp_code_employee,
-
+            cli_mount_month_500: employee.cli_mount_month == 500,
+            cli_mount_month_1000: employee.cli_mount_month == 1000,
+            cli_mount_month_3500: employee.cli_mount_month == 4500,
+            cli_mount_month_na: employee.cli_mount_month == 0,
           });
+          if (employee.cli_dep_code_bussines != null && employee.cli_dep_code_bussines.length > 1) {
+            this.onChangeDepBus(employee.cli_dep_code_bussines);
+          }
+          if (employee.cli_mun_code_bussines != null && employee.cli_mun_code_bussines.length > 1) {
+            this.onChangeMunBus(employee.cli_mun_code_bussines);
+          }
+
+          if (employee.cli_dep_code != null && employee.cli_dep_code.length > 1) {
+            this.onChangeDepDom(employee.cli_dep_code);
+          }
+          if (employee.cli_mun_code != null && employee.cli_mun_code.length > 1) {
+            this.onChangeMunDom(employee.cli_mun_code);
+          }
           this.submitted = false;
           this.loading = false;
         },
@@ -147,34 +160,52 @@ export class NewClientComponent implements OnInit {
   changeTab(valor: any) {
     this.navSelected = valor;
   }
+  cli_have_other_incomer = false;
+
   clearForm() {
     this.editProfile = this.fb.group({
-      employe_code: ['', [Validators.required]],
-      name_1: ['', [Validators.required]],
-      name_2: ['', [Validators.required]],
-      name_3: [''],
-      surname_1: ['', [Validators.required]],
-      surname_2: ['', [Validators.required]],
-      surname_3: [''],
-      gender: ['', [Validators.required]],
-      birth_date: ['', [Validators.required]],
-      start_date: ['', [Validators.required]],
-      end_date: [''],
-      address: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      dui: ['', [Validators.required]],
-      nit: ['', [Validators.required]],
-      isss: ['', [Validators.required]],
-      afp: ['', [Validators.required]],
-      emp_hourly_wage: ['', [Validators.required]],
-      emp_daily_wage: ['', [Validators.required]],
-      emp_base_salary: ['', [Validators.required]],
-      emp_viatic: [''],
-      emp_complementary_diatic: [''],
-      departament: ['', [Validators.required]],
-      job_title: ['', [Validators.required]],
-      job_type: ['', [Validators.required]],
-      immediate_superior: [''],
+      cli_full_name: ['', [Validators.required]],
+      cli_birth_date: ['', []],
+      mar_code: ['', []],
+      cli_dui: ['', []],
+      cli_nit: ['', []],
+      cli_children_number: ['', []],
+      cli_spouse_name: ['', []],
+      cli_email: ['', []],
+      prf_code: ['', []],
+      edl_code: ['', []],
+      cli_place_expedition: ['', []],
+      cli_dui_date_expedition: ['', []],
+      cis_code: ['', []],
+      cli_dui_date_expiration: ['', []],
+      gen_code: ['', []],
+      cli_is_taxpayer: [false, []],
+      cli_no_taxpayer: ['', []],
+      cli_mount_month: [0, []],
+      cli_mount_month_500: [false, []],
+      cli_mount_month_1000: [false, []],
+      cli_mount_month_3500: [false, []],
+      cli_mount_month_na: [false, []],
+      cli_have_other_incomer: [false, []],
+      cli_bussiness_tipe: ['', []],
+      cli_time_bussiness: [0, []],
+      cli_address_bussiness: ['', []],
+      cli_dep_code_bussines: ['', []],
+      cli_mun_code_bussines: ['', []],
+      cli_dis_code_bussines: ['', []],
+      cli_daily_sell: [0, []],
+      cli_daily_buy: [0, []],
+      cli_daily_gain: [0, []],
+      cli_address: ['', []],
+      cli_phone: ['', []],
+      cli_cell_phone: ['', []],
+      cli_dep_code: ['', []],
+      cli_mun_code: ['', []],
+      cli_dis_code: ['', []],
+      cli_have_time_alive: [false, []],
+      cli_time_alive: [0, []],
+      cli_tenant_name: ['', []],
+      cli_tenant_phone: ['', []],
     });
     this.submitted = false;
   }
@@ -192,24 +223,35 @@ export class NewClientComponent implements OnInit {
   }
 
   genders: any[] = [];
-  laborsDepartaments: any[] = [];
-  jobTitle: any[] = [];
-  workStatus: any[] = [];
-  institutions: any[] = [];
+  marks: any[] = [];
+  departaments: any[] = [];
+  bussines_nex_mun_municipalities: any[] = [];
+  bussines_nex_dis_districts: any[] = [];
+  address_nex_mun_municipalities: any[] = [];
+  address_nex_dis_districts: any[] = [];
+  education: any[] = [];
+  profession: any[] = [];
+  relationship: any[] = [];
+  civilStatus: any[] = [];
   selectgroupby = '';
+
+
   getCatalogs() {
     this.loading = true;
     this.employesService
       .getCatalogs()
       .subscribe({
         next: (data: any) => {
-          this.genders = data.data.hos_gen_genders;
-          this.laborsDepartaments = data.data.hos_lad_labor_department;
-          this.jobTitle = data.data.hos_jti_job_title;
-          this.workStatus = data.data.hos_wst_work_status;
-          this.institutions = data.data.hos_din_discount_institutions;
+          this.genders = data.data.genders;
+          this.marks = data.data.marks;
+          this.departaments = data.data.departaments;
+          this.education = data.data.education;
+          this.profession = data.data.profession;
+          this.relationship = data.data.relationship;
+          this.civilStatus = data.data.civilStatus;
           this.submitted = false;
           this.loading = false;
+          this.getEmploye();
         },
         error: (err) => {
           this.submitted = false;
@@ -218,6 +260,20 @@ export class NewClientComponent implements OnInit {
           }, 1000);
         },
       });
+  }
+
+  onChangeDepBus(value) {
+    this.bussines_nex_mun_municipalities = this.departaments.filter(e => e.dep_code == value)[0].nex_mun_municipalities;
+  }
+  onChangeMunBus(value) {
+    this.bussines_nex_dis_districts = this.bussines_nex_mun_municipalities.filter(e => e.mun_code == value)[0].nex_dis_districts;
+  }
+
+  onChangeDepDom(value) {
+    this.address_nex_mun_municipalities = this.departaments.filter(e => e.dep_code == value)[0].nex_mun_municipalities;
+  }
+  onChangeMunDom(value) {
+    this.address_nex_dis_districts = this.address_nex_mun_municipalities.filter(e => e.mun_code == value)[0].nex_dis_districts;
   }
   get form() {
     return this.editProfile.controls;
@@ -228,61 +284,106 @@ export class NewClientComponent implements OnInit {
 
 
   sendEmployeeDate() {
+    console.log(this.form['cli_time_alive'].errors)
 
     this.submitted = true;
     if (this.editProfile.valid) {
       this.loading = true;
-      // let data = this.editProfile.value;
 
-      let birthdate = this.form['birth_date'].value;
-      let emp_birth_date = birthdate.day + "-" + birthdate.month + "-" + birthdate.year;
+      let birthdate = this.form['cli_birth_date'].value;
 
-      let startdate = this.form['start_date'].value;
-      let emp_admission_date = startdate.day + "-" + startdate.month + "-" + startdate.year;
-
-
-      let data: any = {
-        "emp_code_employee": this.form['employe_code'].value,
-        "emp_first_name": this.form['name_1'].value,
-        "emp_second_name": this.form['name_2'].value,
-        "emp_third_name": this.form['name_3'].value,
-        "emp_first_surname": this.form['surname_1'].value,
-        "emp_second_surname": this.form['surname_2'].value,
-        "emp_married_surname": this.form['surname_3'].value,
-        "emp_codgen": this.form['gender'].value,
-        "emp_birth_date": emp_birth_date,
-        "emp_admission_date": emp_admission_date,
-        "emp_address": this.form['address'].value,
-        "emp_cel_phone": this.form['phone'].value,
-        "emp_dui": this.form['dui'].value,
-        "emp_nit": this.form['nit'].value,
-        "emp_isss": this.form['isss'].value,
-        "emp_afp": this.form['afp'].value,
-        "emp_hourly_wage": this.form['emp_hourly_wage'].value,
-        "emp_daily_wage": this.form['emp_daily_wage'].value,
-        "emp_base_salary": this.form['emp_base_salary'].value,
-        "emp_viatic": this.form['emp_viatic'].value,
-        "emp_complementary_diatic": this.form['emp_complementary_diatic'].value,
-        "emp_codlad": this.form['departament'].value,
-        "emp_codjti": this.form['job_title'].value,
-        "emp_codwst": this.form['job_type'].value,
-      };
-      let enddate = this.form['end_date'].value;
-      if (enddate != null && enddate != '') {
-        let emp_departure_date = enddate.day + "-" + enddate.month + "-" + enddate.year;
-        data.emp_departure_date = emp_departure_date;
-      }
-      if (this.form['immediate_superior'].value != null && this.form['immediate_superior'].value != '') {
-        data.emp_codempboss = this.form['immediate_superior'].value;
+      let emp_birth_date = null;
+      console.log("birthdate")
+      console.log(birthdate)
+      if (birthdate != undefined) {
+        emp_birth_date = birthdate.day + "-" + birthdate.month + "-" + birthdate.year;
       }
 
+      // let dui_date_expedition = this.form['cli_dui_date_expedition'].value;
+      // let cli_dui_date_expedition = null;
+      // if (dui_date_expedition != undefined) {
+      //   cli_dui_date_expedition = dui_date_expedition.day + "-" + dui_date_expedition.month + "-" + dui_date_expedition.year;
+      // }
+
+      let dui_date_expiration = this.form['cli_dui_date_expiration'].value;
+
+      let cli_dui_date_expiration = null;
+      if (dui_date_expiration != undefined) {
+        cli_dui_date_expiration = dui_date_expiration.day + "-" + dui_date_expiration.month + "-" + dui_date_expiration.year;
+      }
+
+      let data = this.editProfile.value;
+      if (data.mar_code == null || data.mar_code.length < 5) {
+        delete data.mar_code;
+      }
+      if (data.cis_code == null || data.cis_code.length < 5) {
+        delete data.cis_code;
+      }
+      if (data.edl_code == null || data.edl_code.length < 5) {
+        delete data.edl_code;
+      }
+      if (data.prf_code == null || data.prf_code.length < 5) {
+        delete data.prf_code;
+      }
+      if (data.cli_dep_code_bussines == null || data.cli_dep_code_bussines.length < 5) {
+        delete data.cli_dep_code_bussines;
+      }
+      if (data.cli_mun_code_bussines == null || data.cli_mun_code_bussines.length < 5) {
+        delete data.cli_mun_code_bussines;
+      }
+      if (data.cli_dis_code_bussines == null || data.cli_dis_code_bussines.length < 5) {
+        delete data.cli_dis_code_bussines;
+      }
+      if (data.cli_dep_code == null || data.cli_dep_code.length < 5) {
+        delete data.cli_dep_code;
+      }
+      if (data.cli_mun_code == null || data.cli_mun_code.length < 5) {
+        delete data.cli_mun_code;
+      }
+      if (data.cli_dis_code == null || data.cli_dis_code.length < 5) {
+        delete data.cli_dis_code;
+      }
+      if (data.gen_code == null || data.gen_code.length < 5) {
+        delete data.gen_code;
+      }
+      delete data.cli_have_time_alive;
+      if (data.cli_dui_date_expedition == null || data.cli_dui_date_expedition.length == 0) {
+        data.cli_dui_date_expedition = null;
+      }
+      console.log("data.cli_birth_date")
+      console.log(data.cli_birth_date)
+      if (data.cli_birth_date == null || data.cli_birth_date.length == 0) {
+        data.cli_birth_date = null;
+      }
+      if (data.cli_dui_date_expiration == null || data.cli_dui_date_expiration.length == 0) {
+        data.cli_dui_date_expiration = null;
+      }
+
+      data.cli_mount_month = 0;
+      if (data.cli_mount_month_500) {
+        data.cli_mount_month = 500;
+      }
+      if (data.cli_mount_month_1000) {
+        data.cli_mount_month = 1000;
+
+      }
+      if (data.cli_mount_month_3500) {
+        data.cli_mount_month = 3500;
+
+      }
+      if (data.cli_mount_month_na) {
+        data.cli_mount_month = 0;
+      }
+      delete data.cli_mount_month_500;
+      delete data.cli_mount_month_1000;
+      delete data.cli_mount_month_3500;
+      delete data.cli_mount_month_na;
       // Login Api
       this.employesService
         .create(data, this.id)
         .subscribe({
           next: (data: any) => {
-            this.id = data.data.emp_code;
-
+            this.id = data.data.cli_code;
             // this.router.navigate(["/employees/update/" + this.id]);
             Swal.fire({
               type: 'success',
@@ -299,7 +400,7 @@ export class NewClientComponent implements OnInit {
             this.submitted = false;
 
           },
-          error: (err) => {
+          error: (err: any) => {
             this.submitted = false;
             setTimeout(() => {
               this.loading = false;

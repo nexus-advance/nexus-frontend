@@ -32,6 +32,7 @@ import { SvgIconComponent } from "./components/svg-icon/svg-icon.component";
 import { SwiperModule } from "swiper/angular";
 import { SwiperComponent } from "./components/header/elements/swiper/swiper.component";
 
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -53,8 +54,8 @@ import { SwiperComponent } from "./components/header/elements/swiper/swiper.comp
     SvgIconComponent,
     SwiperComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, SwiperModule, NgSelectModule,],
-  providers: [NavService, LayoutService, DecimalPipe],
-  exports: [NgbModule, FormsModule, ReactiveFormsModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, SvgIconComponent, SwiperModule,NgSelectModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, SwiperModule, NgSelectModule, NgxMaskDirective, NgxMaskPipe,],
+  providers: [NavService, LayoutService, DecimalPipe, provideNgxMask()],
+  exports: [NgbModule, FormsModule, ReactiveFormsModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, SvgIconComponent, SwiperModule, NgSelectModule, NgxMaskDirective, NgxMaskPipe,],
 })
 export class SharedModule { }

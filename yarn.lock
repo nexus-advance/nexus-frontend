@@ -8024,6 +8024,13 @@ ngx-cookie-service@^17.0.0:
   dependencies:
     tslib "^2.6.2"
 
+ngx-mask@15.1.5:
+  version "15.1.5"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-15.1.5.tgz#92286618ec9b007de6764cc352c0520494601e0a"
+  integrity sha512-nEoqZTtiDlTgxtGblOurKuK4LUjTnkx25kI2rtBd9fCkGlT9lQUzzzDwjuaWDxel5/m1z0tohVmqDfUzB0zXuQ==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-toastr@^18.0.0:
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-18.0.0.tgz#0016e897108817eb6b2ee16ff130b4c42fc214b0"
