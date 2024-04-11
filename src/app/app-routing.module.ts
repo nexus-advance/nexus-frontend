@@ -29,6 +29,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./modules/clients/clients.module").then((m) => m.ClientsModule),
       }, 
+      {
+        path: "credicts",
+        loadChildren: () =>
+          import("./modules/credicts/credicts.module").then((m) => m.CredictsModule),
+      }, 
     ]
   },
   {

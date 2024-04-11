@@ -1,0 +1,96 @@
+<app-breadcrumb [title]="'Crear'" [items]="['Credito' ]" [active_item]="'Creditos'"></app-breadcrumb>
+<div class="container-fluid basic_table">
+    <div class="row">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Abrir nuevo credito</h3>
+                    <span>Los Clientes pueden ser filtrados por
+
+                        <code>NOMBRES</code>
+                        <code>DUI</code>
+                        <code>NEGOCIO</code>
+
+                    </span>
+                </div>
+                <div class="loader-box" *ngIf="loading">
+                    <div class="loader-37"></div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="formDiscount">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label">Fecha </label>
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="text" placeholder="yyyy-mm-dd" mask="0000-M0-d0"
+                                        [dropSpecialCharacters]="false" formControlName="cli_dui_date_expedition"
+                                        [ngClass]="{
+                                            'is-invalid': submitted && formi['cli_dui_date_expedition'].errors
+                                          }" />
+                                </div>
+                                <p *ngIf="submitted && formi['cli_dui_date_expedition'].errors"
+                                    class="is-invalid text-danger">
+                                    Este dato es requerido
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Cliente</label>
+                                    <select class="form-control" formControlName="rel_code"
+                                        [ngClass]="{ 'is-invalid': submitted && formi['rel_code'].errors }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option value="1">Reynaldo</option>
+                                        <option *ngFor="let item of relationship" [value]="item.rel_code">
+                                            {{item.rel_names}}
+                                        </option>
+                                    </select>
+                                    <p *ngIf="submitted && formi['rel_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Periodo</label>
+                                    <select class="form-control" formControlName="rel_code"
+                                        [ngClass]="{ 'is-invalid': submitted && formi['rel_code'].errors }">
+                                        <option value="" selected>--Seleccione--</option>
+                                        <option value="" selected>20 Dias (14 %)</option>
+                                        <option value="" selected>25 Dias (15 %)</option>
+                                        <option value="" selected>30 Dias (16 %)</option>
+                                        <option value="" selected>45 Dias (17 %)</option>
+                                        <!-- <option *ngFor="let item of relationship" [value]="item.rel_code">
+                                            {{item.rel_names}}
+                                        </option> -->
+                                    </select>
+                                    <p *ngIf="submitted && formi['rel_code'].errors" class="is-invalid text-danger">
+                                        Este dato es requerido
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Monto</label>
+                                <input class="form-control" type="number" placeholder="Ingresa la Direccion"
+                                    formControlName="ref_address"
+                                    [ngClass]="{ 'is-invalid': submitted && formi['ref_address'].errors }" />
+                                <p *ngIf="submitted && formi['ref_address'].errors" class="is-invalid text-danger">
+                                    Este dato es requerido
+                                </p>
+                            </div>
+                            <div class="col-1"> <br>
+                                <button class="btn btn-primary" *ngIf="!loading" type="button"
+                                    (click)="sendEmployeeDiscount()">Agregar</button>
+                                <div class="loader-box" *ngIf="loading">
+                                    <div class="loader-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,8 +14,8 @@ export class ClientsService {
   getOne(id: any) {
     return this.http.get(`${this.endpoint}/${id}`);
   }
-  getDiscounts(id: any) {
-    return this.http.get(`${this.endpoint}/get/discountss/${id}`);
+  getReferences(id: any) {
+    return this.http.get(`${this.endpoint}/reference/${id}`);
   }
   create(data: any, id: string) {
     if (id.length > 10) {
@@ -25,11 +25,11 @@ export class ClientsService {
     }
   }
 
-  create_discount(data: any) {
-    return this.http.post(`${this.endpoint}/discounts`, data);
+  createReferences(data: any) {
+    return this.http.post(`${this.endpoint}/reference`, data);
   }
-  deleteDiscount(id: any) {
-    return this.http.delete(`${this.endpoint}/discounts/${id}`);
+  deleteReference(id: any) {
+    return this.http.delete(`${this.endpoint}/reference/${id}`);
   }
   delete(id: any) {
     return this.http.delete(`${this.endpoint}/${id}`);

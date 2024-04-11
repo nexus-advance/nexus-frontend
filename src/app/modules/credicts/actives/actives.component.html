@@ -1,0 +1,94 @@
+<app-breadcrumb [title]="'Creditos'" [items]="['Creditos' ]" [active_item]="'Listado'"></app-breadcrumb>
+<div class="container-fluid basic_table">
+    <div class="row">
+
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Listado de creditos activos</h3>
+                    <span>Los Clientes pueden ser filtrados por
+                        <code>nombres</code>
+                        <code>apellidos</code>
+                        <code>teléfono</code>
+                        <code>dirección</code>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-self-start ps-4 p-2">
+                        <input class="form-control" id="buscarcliente" type="text" placeholder="Digitar para buscar..."
+                            #filtro />
+                            <!-- (keyup)="buscarCliente($event)"  -->
+                    </div>
+                    <div class="col-md-8 text-end  pt-2">
+                        <button class="btn btn-primary btn-lg me-2 " type="button" placement="top"
+                            ngbTooltip="Crear nuevo Cliente" [routerLink]="'/credicts/create'">
+                            Nuevo Credito
+                        </button>
+                    </div>
+                    <div class="col-12">
+
+                        <hr>
+                    </div>
+                </div>
+                <div class="loader-box" *ngIf="loading">
+                    <div class="loader-37"></div>
+                </div>
+                <div class="table-responsive signal-table">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">DUI</th>
+                                <th scope="col">Monto neto</th>
+                                <th scope="col">Interes(Porcentaje)</th>
+                                <th scope="col">Monto total </th>
+                                <th scope="col">Pendiente</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of employyes; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>
+                                    {{item.cli_full_name }}
+                                </td>
+                                <td>
+                                    {{item.cli_dui ?? ''}}
+                                </td>
+                                <td>
+                                    {{item.cli_phone ?? ''}}
+                                </td>
+                                <td>
+                                    {{ item.nex_dis_districts_client?.nex_mun_municipalities?.nex_dep_departament?.dep_names ?? ''}} <br>
+                                    {{ item.nex_dis_districts_client?.nex_mun_municipalities?.mun_names ?? ''}} <br>
+                                    {{ item.nex_dis_districts_client?.dis_names ?? ''}} 
+                                </td>
+                                <td>
+                                    {{item.nex_cis_civil_status?.cis_names ?? '' }}
+                                </td>
+                                <td>
+                                    {{item.nex_gen_gender?.gen_names ?? '' }}
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <button class="btn btn-warning me-2"
+                                            [routerLink]="'/clients/update/'+item.cli_code">
+                                            <i class="icon-pencil-alt"></i>
+                                        </button>
+
+                                        <button class="btn btn-danger" (click)="deleteClient(item.cli_code)">
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

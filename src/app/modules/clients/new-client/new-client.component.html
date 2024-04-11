@@ -22,7 +22,7 @@
                                 </ng-template>
                             </li>
                             <li [ngbNavItem]="2" (click)="changeTab('2')">
-                                <a ngbNavLink><i class="icofont icofont-contacts"></i>Descuentos</a>
+                                <a ngbNavLink><i class="icofont icofont-contacts"></i>Referencias</a>
                                 <ng-template ngbNavContent>
                                 </ng-template>
                             </li>
@@ -648,88 +648,59 @@
                     </form>
 
                     <div *ngIf="navSelected=='2'">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                         <div *ngIf="id.length<10" class="alert alert-info"> <b>Atencion:</b> Se necesita registrar a un
                             cliente para agregarle descuentos</div>
                         <form *ngIf="id.length>10" [formGroup]="formDiscount">
                             <div class="row">
-                                <div class="col-3">
-                                    <label class="form-label">Institucion</label>
-                                    <ng-select [items]="institutions" bindLabel="din_name" bindValue="din_code"
-                                        formControlName="institute" [ngClass]="{
-                                        'is-invalid': submitted && formi['institute'].errors
-                                      }">
-                                        <ng-template ng-optgroup-tmp let-item="item">
-                                            {{item.din_name || 'Unnamed group'}}
-                                        </ng-template>
-                                    </ng-select>
-                                    <p *ngIf="submitted && formi['institute'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">Detalle</label>
-                                    <input class="form-control" type="text" placeholder="Obtén más información"
-                                        formControlName="detail" [ngClass]="{
-                                        'is-invalid': submitted && formi['detail'].errors
+                                <div class="col-md-2">
+                                    <label class="form-label">Nombre</label>
+                                    <input class="form-control" type="text" placeholder="Ingresa el nombre" formControlName="ref_name"
+                                        [ngClass]="{
+                                                                                                        'is-invalid': submitted && formi['ref_name'].errors
                                       }" />
-                                    <p *ngIf="submitted && formi['detail'].errors" class="is-invalid text-danger">
+                                    <p *ngIf="submitted && formi['ref_name'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
-                                <div class="col-2">
-                                    <label class="form-label">Fecha de inicio</label>
-                                    <div class="input-group mb-3">
-                                        <input class="form-control" [(ngModel)]="modelstart" type="text"
-                                            placeholder="yyyy-mm-dd" mask="0000-M0-d0" name="modelstart1" ngbDatepicker
-                                            #modelstart1="ngbDatepicker" [placement]="'top'" [positionTarget]="buttonEl"
-                                            formControlName="startdate" [ngClass]="{
-                                                'is-invalid': submitted && formi['startdate'].errors
-                                              }" />
-                                        <button #buttonEl class="btn btn-primary calendar"
-                                            (click)="modelstart1.toggle()" type="button">
-                                            <app-feather-icons [icon]="'calendar'"></app-feather-icons>
-                                        </button>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Vinculo</label>
+                                        <select class="form-control" formControlName="rel_code"
+                                            [ngClass]="{ 'is-invalid': submitted && formi['rel_code'].errors }">
+                                            <option value="" selected>--Seleccione--</option>
+                                            <option *ngFor="let item of relationship" [value]="item.rel_code"> {{item.rel_names}}
+                                            </option>
+                                        </select>
+                                        <p *ngIf="submitted && formi['rel_code'].errors" class="is-invalid text-danger">
+                                            Este dato es requerido
+                                        </p>
                                     </div>
-                                    <p *ngIf="submitted && formi['startdate'].errors" class="is-invalid text-danger">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Direcion</label>
+                                    <input class="form-control" type="text" placeholder="Ingresa la Direccion" formControlName="ref_address"
+                                        [ngClass]="{ 'is-invalid': submitted && formi['ref_address'].errors }" />
+                                    <p *ngIf="submitted && formi['ref_address'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
-
-                                <div class="col-2">
-                                    <label class="form-label">Fecha de fin</label>
-                                    <div class="input-group mb-3">
-                                        <input class="form-control" [(ngModel)]="modelend" type="text"
-                                            placeholder="yyyy-mm-dd" mask="0000-M0-d0" name="modelend1" ngbDatepicker
-                                            #modelend1="ngbDatepicker" [placement]="'top'" [positionTarget]="buttonEl"
-                                            formControlName="enddate" [ngClass]="{
-                                                'is-invalid': submitted && formi['enddate'].errors
-                                              }" />
-                                        <button #buttonEl class="btn btn-primary calendar" (click)="modelend1.toggle()"
-                                            type="button">
-                                            <app-feather-icons [icon]="'calendar'"></app-feather-icons>
-                                        </button>
-                                    </div>
-                                    <p *ngIf="submitted && formi['enddate'].errors" class="is-invalid text-danger">
+                                <div class="col-md-2">
+                                    <label class="form-label">Lugar de trabajo</label>
+                                    <input class="form-control" type="text" placeholder="Ingresa el lugar de trabajo" formControlName="ref_work_place"
+                                        [ngClass]="{ 'is-invalid': submitted && formi['ref_work_place'].errors }" />
+                                    <p *ngIf="submitted && formi['ref_work_place'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
-                                <div class="col-1">
-                                    <label class="form-label">Cant. Cuotas</label>
-                                    <input class="form-control" type="number" placeholder="Cuotas pendientes"
-                                        formControlName="dues" [ngClass]="{
-                                        'is-invalid': submitted && formi['dues'].errors
-                                      }" />
-                                    <p *ngIf="submitted && formi['dues'].errors" class="is-invalid text-danger">
-                                        Este dato es requerido
-                                    </p>
-                                </div>
-                                <div class="col-1">
-                                    <label class="form-label">Monto</label>
-                                    <input class="form-control" type="number" placeholder="Monto"
-                                        formControlName="amount" [ngClass]="{
-                                        'is-invalid': submitted && formi['amount'].errors
-                                      }" />
-                                    <p *ngIf="submitted && formi['amount'].errors" class="is-invalid text-danger">
+                                <div class="col-md-2">
+                                    <label class="form-label">Teléfono</label>
+                                    <input class="form-control" type="text" placeholder="Ingresa el teléfono" mask="0000-0000"
+                                        formControlName="ref_phone" [ngClass]="{'is-invalid': submitted && formi['ref_phone'].errors }" />
+                                    <p *ngIf="submitted && formi['ref_phone'].errors" class="is-invalid text-danger">
                                         Este dato es requerido
                                     </p>
                                 </div>
@@ -750,12 +721,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Institucion</th>
-                                        <th scope="col">Detalle</th>
-                                        <th scope="col">Fecha Inicio</th>
-                                        <th scope="col">Fecha Fin</th>
-                                        <th scope="col">Cuotas <br> Pendientes</th>
-                                        <th scope="col">Monto <br> Cuota</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Vinculo</th>
+                                        <th scope="col">Direccion</th>
+                                        <th scope="col">Lugar<br>Trabajo</th>
+                                        <th scope="col">Telefono</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -763,39 +733,29 @@
                                     <tr *ngFor="let item of discounts; let i=index">
                                         <th scope="row">{{i+1}}</th>
                                         <td>
-                                            {{item.hos_din_discount_institutions.din_name}}
+                                            {{item.ref_name }}
                                         </td>
                                         <td>
-                                            {{item.des_reference }}
+                                            {{item.nex_rel_relationship.rel_names}}
+                                            </td>
+                                        <td>
+                                            {{item.ref_address}}
                                         </td>
                                         <td>
-                                            {{item.emp_start_date | date}}
+                                            {{item.ref_work_place}}
                                         </td>
                                         <td>
-                                            {{item.emp_end_date | date}}
-                                        </td>
-                                        <td>
-                                            {{item.des_number_dues}}
-                                        </td>
-                                        <td>
-                                            {{item.des_amount | currency}}
+                                            {{item.ref_phone }}
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="btn btn-danger" (click)="deleteDiscount(item.des_code)">
+                                                <button class="btn btn-danger" (click)="deleteDiscount(item.ref_code)">
                                                     <i class="icon-trash"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="6" class="text-end">Descuento total</th>
-                                        <td> {{ totalDiscount | currency }}</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
+                                </tbody> 
                             </table>
                             <br>
                         </div>
