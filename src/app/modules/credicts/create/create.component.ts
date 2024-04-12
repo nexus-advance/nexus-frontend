@@ -28,7 +28,8 @@ export class CreateComponent {
     this.getAllClients();
     this.getTaxse();
     const newDate = new Date();
-    const month = newDate.getMonth() > 9 ? newDate.getMonth() : "0" + newDate.getMonth();
+    const m = newDate.getMonth() + 1;
+    const month = m > 9 ? m : "0" + m;
     this.formCredit.patchValue({
       cre_date_start: newDate.getFullYear() + "-" + month + "-" + newDate.getDate(),
     });
@@ -180,9 +181,11 @@ export class CreateComponent {
               icon: "success",
             });
             this.clearFormDiscount();
+            this.loading = false;
 
           } else {
 
+            this.loading = false;
             Swal.fire({
               title: "Error",
               text: "Ha ocurrido un error intentelo mas tarde!",

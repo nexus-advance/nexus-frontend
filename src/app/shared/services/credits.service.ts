@@ -17,6 +17,9 @@ export class CreditsService {
   create(data: any,) {
     return this.http.post(`${this.endpoint}`, data);
   }
+  generarAbono(data: any,) {
+    return this.http.post(`${this.endpoint}/generar-abono`, data);
+  }
 
   delete(id: any) {
     return this.http.delete(`${this.endpoint}/${id}`);
