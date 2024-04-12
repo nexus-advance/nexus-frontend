@@ -2311,6 +2311,13 @@ align-text@^0.1.1:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
+angular-ng-autocomplete@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/angular-ng-autocomplete/-/angular-ng-autocomplete-2.0.12.tgz#a8bd75f1d0057dddfd09d5ee397c616c259adf1e"
+  integrity sha512-EVv0x5REi96bQ7gXqGls+xUNiWLZxpbOLqQDg667jzV1swuBxVy/1oLvskTwsiLpgtxiDMgqq9M7fOEur6a/9A==
+  dependencies:
+    tslib "^2.3.0"
+
 angular2-multiselect-dropdown@^5.0.4:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/angular2-multiselect-dropdown/-/angular2-multiselect-dropdown-5.0.4.tgz#19c49f3efaa2b2c8b4c135c4366ef4ba93285753"

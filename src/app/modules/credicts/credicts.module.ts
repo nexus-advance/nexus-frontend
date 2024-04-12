@@ -5,6 +5,7 @@ import { CreateComponent } from './create/create.component';
 import { CredictsRoutingModule } from './credicts.routing.module';
 import { HistoryComponent } from './history/history.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    CredictsRoutingModule
+    CredictsRoutingModule,
+    AutocompleteLibModule
   ]
 })
 export class CredictsModule { }
