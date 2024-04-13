@@ -103,6 +103,7 @@ export class NavService implements OnDestroy {
       active: true,
       children: [
         { path: "/credicts/actives", title: "Activos", type: "link" },
+        { path: "/credicts/dues", title: "Cuotas", type: "link" },
         { path: "/credicts/history", title: "Historial", type: "link" },
       ],
     },

@@ -12,6 +12,7 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { ContentComponent } from "./components/layout/content/content.component";
 import { FullComponent } from "./components/layout/full/full.component";
+import { ProductStatusChartBoxComponent } from "./components/product-status-chart-box/product-status-chart-box.component";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { TapToTopComponent } from "./components/tap-to-top/tap-to-top.component";
@@ -42,6 +43,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
     BreadcrumbComponent,
     FeatherIconsComponent,
     FullComponent,
+    ProductStatusChartBoxComponent,
     LoaderComponent,
     TapToTopComponent,
     SearchComponent,
@@ -56,6 +58,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, SwiperModule, NgSelectModule, NgxMaskDirective, NgxMaskPipe,],
   providers: [NavService, LayoutService, DecimalPipe, provideNgxMask()],
-  exports: [NgbModule, FormsModule, ReactiveFormsModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, SvgIconComponent, SwiperModule, NgSelectModule, NgxMaskDirective, NgxMaskPipe,],
+  exports: [NgbModule, FormsModule, ReactiveFormsModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, SvgIconComponent, SwiperModule, NgSelectModule, NgxMaskDirective, NgxMaskPipe, ProductStatusChartBoxComponent],
 })
 export class SharedModule { }

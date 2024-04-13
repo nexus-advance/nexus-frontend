@@ -22,9 +22,9 @@ export class ActivesComponent {
     this.loading = true;
     this.service.getAll().subscribe({
       next: (resp: any) => {
-        this.credits = resp.data;
+        this.employyes = resp.data; 
         this.loading = false;
-        this.credits.map(e => {
+        this.employyes.map(e => {
           e.abonado = 0;
           for (const iterator of e.nex_abo_abonos) {
             e.abonado = e.abonado + iterator.abo_cuota;
@@ -50,7 +50,8 @@ export class ActivesComponent {
   }
 
   mostrarDialogo(cre_code): void {
-    const data = this.credits.filter(e => e.cre_code == cre_code);
+    console.log()
+    const data = this.employyes.filter(e => e.cre_code == cre_code);
     if (data.length == 0) return;
     const client = data[0];
     Swal.fire({

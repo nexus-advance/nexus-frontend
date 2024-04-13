@@ -27,4 +27,7 @@ export class CreditsService {
   getTaxse() {
     return this.http.get(`${this.endpoint}/taxse`);
   }
+  getAllDues(data: any) {
+    return this.http.post(`${this.endpoint}/dues`, data);
+  }
 }

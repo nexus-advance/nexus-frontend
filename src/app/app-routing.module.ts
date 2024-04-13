@@ -1,9 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ContentComponent } from "./shared/components/layout/content/content.component";
-import { FullComponent } from "./shared/components/layout/full/full.component";
-import { full } from "./shared/routes/full.routes";
-import { content } from "./shared/routes/routes";
+import { ContentComponent } from "./shared/components/layout/content/content.component"; 
 import { AuthGuard } from "./modules/core/guards/auth.guard";
 import { NoAuthGuard } from "./modules/core/guards/noAuth.guard";
 
@@ -17,8 +14,7 @@ const routes: Routes = [
     path: "",
     component: ContentComponent,
     canActivate: [AuthGuard],
-    children: [
-      ...content,
+    children: [ 
       {
         path: "dashboard",
         loadChildren: () =>
