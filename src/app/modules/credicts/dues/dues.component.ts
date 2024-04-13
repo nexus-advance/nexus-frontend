@@ -53,6 +53,7 @@ export class DuesComponent {
     this.service.getAllDues(data).subscribe({
       next: (resp: any) => {
         this.dues = resp.data.cuotas;
+        this.credits = resp.data.cuotas;
         this.sales.counter = "$ " + Number(resp.data.credits).toFixed(2);
         this.loading = false;
         let cuotas = 0;
@@ -75,7 +76,7 @@ export class DuesComponent {
       this.dues = this.credits;
     } else {
       this.dues = this.credits.filter(e => (
-        e.nex_cli_clients.cli_full_name.toLowerCase().includes(busqueda.toLowerCase())
+        e.nex_cre_credits.nex_cli_clients.cli_full_name.toLowerCase().includes(busqueda.toLowerCase())
       ));
     }
   }
