@@ -31,7 +31,7 @@ export class DuesComponent {
   purchaseRate = {
     icon: "rate",
     counter: "5700",
-    name: "No recuperado",
+    name: "Recuperado",
     font: "success",
     pr: "+70",
   };
@@ -39,7 +39,7 @@ export class DuesComponent {
   purchase = {
     icon: "cart",
     counter: "10,000",
-    name: "Recuperado",
+    name: "No Recuperado",
     font: "secondary",
     pr: "-20",
   };

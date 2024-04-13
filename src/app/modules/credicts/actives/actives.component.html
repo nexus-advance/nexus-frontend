@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Cliente</th>
-                                <th scope="col">DUI</th>
+                                <th scope="col">Cuota <br> Diraria</th>
                                 <th scope="col">Monto neto</th>
                                 <th scope="col">Interes(Porcentaje)</th>
                                 <th scope="col">Monto total </th>
@@ -54,7 +54,7 @@
                                     {{item.nex_cli_clients.cli_full_name }}
                                 </td>
                                 <td>
-                                    {{item.nex_cli_clients.cli_dui ?? ''}}
+                                    {{item.cre_daily_quota | currency}}
                                 </td>
                                 <td>
                                     {{item.cre_neto_amount | currency}}

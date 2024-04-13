@@ -414,7 +414,7 @@ export class NewClientComponent implements OnInit {
             showConfirmButton: true,
             icon: "success",
           });
-          if (this.id.length > 10) this.clearForm();
+          // if (this.id.length > 10) this.clearForm();
           setTimeout(() => {
             this.loading = false;
           }, 500);
