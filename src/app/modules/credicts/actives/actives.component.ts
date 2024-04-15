@@ -108,4 +108,51 @@ export class ActivesComponent {
       }
     });
   }
+
+
+  pdfUrl: any;
+  content?: any;
+  printInvoice(id: any, numero_factura: any="222") {
+    if (id) {
+      this.loading = true;
+      this.service.generarPdfReports(id).subscribe({
+        next: (resp: any) => {
+          this.loading = false;
+          console.log(resp)
+          const date = new Date();
+          const blob = this.base64ToBlob(resp.data, 'application/pdf');
+          // this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob)); 
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `PAGARE-${date.getMilliseconds()}.pdf`; // El nombre de archivo que desees
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+        },
+        error: (err) => {
+          this.loading = false;
+          this.content = JSON.parse(err.error).message;
+          Swal.fire({
+            icon: "error",
+            html: "No se envio el correo, intente nuevamente.",
+          });
+        },
+      });
+    }
+  }
+
+
+  base64ToBlob(base64: string, type = 'application/octet-stream') {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const binaryArray = new Uint8Array(len);
+
+    for (let i = 0; i < len; i++) {
+      binaryArray[i] = binaryString.charCodeAt(i);
+    }
+
+    return new Blob([binaryArray], { type: type });
+  }
 }
